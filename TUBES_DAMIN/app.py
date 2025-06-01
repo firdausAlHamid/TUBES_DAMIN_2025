@@ -13,6 +13,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, r2_score, mean_squared_error, mean_absolute_error
 import plotly.express as px
 import plotly.graph_objects as go
+import os
 
 # Set page config
 st.set_page_config(
@@ -28,7 +29,11 @@ st.write("Analisis gaji dan perbandingan model prediksi (Linear Regression & Ran
 # Load data
 @st.cache_data
 def load_data():
-    df = pd.read_csv("ds_salaries.csv")
+    # Construct the absolute path to the CSV file
+    # Assuming ds_salaries.csv is in the same directory as app.py
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(current_dir, "ds_salaries.csv")
+    df = pd.read_csv(csv_path)
     df['job_title'] = df['job_title'].str.strip()
     return df
 
